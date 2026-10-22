@@ -1,46 +1,53 @@
-// import logo from './logo.svg';
-import './App.css';
-import React from 'react';
 
+import "./App.css";
+import { useContext } from "react";
 import {
   Route,
   Routes,
   BrowserRouter,
-  Navigate
+  Navigate,
 } from "react-router-dom";
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Register from './pages/Register'
-import { useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
 
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import { AuthContext } from "./context/AuthContext";
 
-function App(){
-  const {currentUser} = useContext(AuthContext)
-  const ProtectedRoute = ({children}) => {
-   if(!currentUser) {
-    return <Navigate to = '/login'/>
-   }
+function App() {
+  const { currentUser, loading } = useContext(AuthContext);
 
-   return children
-  }
+  const ProtectedRoute = ({ children }) => {
+    if (loading) {
+      return <div>Loading...</div>;
+    }
 
-  return(
+    if (!currentUser) {
+      return <Navigate to="/login" replace />;
+    }
+
+    return children;
+  };
+
+  return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/">
-       <Route index element={ 
-         <ProtectedRoute>
-         <Home />
-        </ProtectedRoute>
-       }/>
-       <Route path='login' element={<Login />}/>
-       <Route path='register' element={<Register />}/>
-     </Route>
-   </Routes>  
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/register" element={<Register />} />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </BrowserRouter>
   );
-
 }
 
 export default App;
