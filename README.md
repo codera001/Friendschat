@@ -6,7 +6,7 @@ Friendschat is a chat application built with React and Firebase, designed to let
 ## ✨ Features
 
 - User authentication
-- Real-time messaging, if supported by the implementation<img width="1263" height="673" alt="Screen Shot 2026-10-22 at 2 06 12 PM" src="https://github.com/user-attachments/assets/9ed7284b-36d0-401e-a801-a26c8206e990" />
+- Real-time messaging, if supported by the implementation
 
 - Interactive chat interface
 - Firebase integration
